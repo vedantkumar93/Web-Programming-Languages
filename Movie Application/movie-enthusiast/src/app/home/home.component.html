@@ -1,0 +1,77 @@
+<div class="row" style="margin-top: 90px">
+        <div class="col-md-2 "></div>    
+        <div class="col-md-8  my-2">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                <div class="p-2 search-box bg-light rounded rounded-pill shadow-sm mb-5 ">
+                        <div class="input-group">
+                            <input id="searchbox" [(ngModel)]="searchTerm" type="search" (keydown)="onKeydown($event)" placeholder="What're you searching for?" aria-describedby="button-addon2" class="form-control border-0 bg-light">
+                            <div class="input-group-append">
+                                    <button id="button-addon2" type="submit" (click)= "onSearch()" class="btn btn-link text-warning"><fa-icon [icon]="faSearch"></fa-icon></button>
+                            </div>
+                        </div>
+                </div>
+                </div>
+                <div class="col-md-1 mx-2 my-2">
+                        <div class="btn-group">
+                                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><fa-icon class="mx-1" [icon]="faFilter"></fa-icon>Filter</button>
+                                <div class="dropdown-menu filter-box">
+                                    <div class="dropdown-header">GENRE</div>
+                                    <div  *ngFor="let genre of genres">
+                                    <span (click)="addFilter('genre',genre)" class="dropdown-item filter">{{genre}}</span>
+                                    </div>
+                                    <div class="dropdown-header">Year</div>
+                                    <div  *ngFor="let year of years">
+                                        <span (click)="addFilter('year',year)" class="dropdown-item filter">{{year}}</span>
+                                    </div>
+                                </div>
+                            </div> 
+                </div>
+                <div *ngIf="isAdmin" class="col-md-2 mx-2 my-2">
+                    <button type="button" (click)="addMovie()" class="btn btn-warning " ><fa-icon class="mx-1" [icon]="faPlus"></fa-icon>Add Movie</button>
+                </div>
+            </div>
+            <div *ngIf="filters.length > 0" class="row m-2">
+                    <span class="filter-header">Filters :</span>
+                    <div *ngFor="let filter of filters">
+                        <span class="badge badge-pill badge-warning p-2 mx-1">{{filter.value}}<button type="button" class="close" (click)="removeFilter(filter)" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                         </button>
+                        </span>
+                    </div>
+                    <span (click)="removeAllFilters()" class="clear-filter badge badge-pill badge-danger p-2 mx-1">Clear All </span>
+
+            </div>   
+                <div *ngIf="!loading" class="row">
+                    <div class="col-md-3 my-2" *ngFor="let movie of pageOfMovies">
+                        <div [class]="isAdmin ? 'admin-card card text-center' : 'normal-card card text-center'" >
+                            <img (click)="goToMovieDetail(movie._id)" [src]="imageUrl + movie.image" class="card-img-top image-clickable" [alt]="movie.title">
+                            <div class="card-body">
+                                <h5 (click)="goToMovieDetail(movie._id)" class="card-title text-truncate title-clickable" [title]="movie.title">{{movie.title}}</h5>
+                                <p class="card-text font-weight-bold "> ${{movie.price}}
+                                <br><span *ngIf="!movie.inStock" class="font-weight-bold text-danger"> Out of Stock</span>
+                                </p>
+                                <button (click)="addToCart(movie)" [disabled]="!movie.inStock"  [class]="  movie.inStock ? 'mt-4 btn btn-warning': 'mt-0 btn btn-warning'"> <fa-icon class="mx-2" [icon]="faShoppingCart"></fa-icon>Add to Cart </button>
+                                <div *ngIf="isAdmin" class="row my-2 justify-content-center">
+                                    <div class="col-5.5 mx-2 ">
+                                        <button (click)="editMovie(movie._id)" class="btn btn-warning"> <fa-icon class="mx-1" [icon]="faEdit"></fa-icon>Edit</button>
+                                    </div>
+                                    <div class="col-6.5 mx-2">
+                                        <button (click)="deleteMovie(movie._id,movie.title)" class="btn btn-danger"> <fa-icon class="mx-1" [icon]="faTrash"></fa-icon>Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="loading" class="text-center text-warning">
+                        <div class="spinner-border" style="width: 5rem; height: 5rem;" role="status">
+                        </div>
+                      </div>
+                <div *ngIf="!loading" class="row justify-content-center">
+                    <jw-pagination [items]="movies" [pageSize]="8" (changePage)="onChangePage($event)" [initialPage]="initialPage"></jw-pagination>
+                </div>
+        </div>
+        <div class="col-md-2 "></div>    
+</div>
+

@@ -1,0 +1,19 @@
+<% include partials/header%>
+
+<h1>This is user login form</h1>
+
+<form action="/login" method="POST">
+
+  <div class="form-group">
+    <input type="email" name="username" class="form-control" placeholder="Enter email">
+  </div>
+  
+  <div class="form-group">
+    <input type="password" name="password" class="form-control" placeholder="Password">
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+
+<% include partials/footer %>

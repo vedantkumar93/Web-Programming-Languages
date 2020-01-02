@@ -1,0 +1,72 @@
+.form-control:focus {
+  box-shadow: none;
+}
+.input-group{
+    box-sizing: border-box;
+    padding: 2px ;
+}
+.search-box{
+    border: 2px solid;
+}
+
+.filter{
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+
+.form-control-clear {
+    z-index: 10;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.clear-filter{
+    z-index: 10;
+    pointer-events: auto;
+    cursor: pointer;
+}
+.badge {
+    font-size: 15px; 
+}
+.badge .close{
+		margin-left: .25rem;
+		color: inherit;
+		font-size: 15px;
+		text-shadow: 0 1px 0 rgba(#000, .5);
+	
+}
+
+.filter-header{
+    font-size : 18px;
+    font-weight : bold;
+}
+
+.image-clickable, .title-clickable{
+    z-index: 10;
+    pointer-events: auto;
+    cursor: pointer;
+}
+.normal-card{
+    width: 15rem;
+    height:30rem;
+}
+.admin-card{
+    width: 15rem;
+    height:32rem;
+}
+
+.image-clickable{
+    height: 300px;
+}
+
+.page-item .active .page-link{
+    z-index: 4 !important;
+    background-color: #ffc107 !important;
+}
+
+.filter-box{
+    max-height: 300px;
+    overflow-y:auto;
+}

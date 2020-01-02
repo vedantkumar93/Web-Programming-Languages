@@ -1,0 +1,49 @@
+<% include partials/header%>
+
+<% if(user) {%>
+<h3> You have signed in as <%= user.username %></h3>
+<a href="/logout">Logout</a>
+<% } %>
+
+<% if(!user) { %>
+<a href="/login">Login</a>
+<a href="/register">Register</a>
+<% } %>
+
+<% if(user && user.type === "admin") { %>
+<div class="jumbotron">
+  <h1 class="display-4">Welcome to Vidzy</h1>
+  <p>Here is the list of most popular videos</p>
+  <a class="btn btn-info btn-lg" href="/videos/new" role="button">Add a new video</a>
+</div>
+<% } %>
+
+<div class="container">
+
+
+<!--<h1>Welcome to Vidzy</h1>-->
+
+<div class="row">
+	<form action="/">
+		<input type="text" placeholder="Search.." name="search" value=<%= search %>>
+		<select name="selectGenre">
+				<% for(var i = 0; i <= genre.length; i++) { %>
+				  <option value='<%= genre[i] %>'><%= genre[i] %></option>
+				<% } %>
+			  </select>
+		<button type="submit">Submit</button>
+	</form>
+</div>
+
+<div class="row">
+<% videos.forEach(function(video){ %>
+	<div class="sm-col-3">
+		<img src="images/<%= video.image %>" style="width:200px; height:200px;" class="img-thumbnail"/>
+		<div class="caption"><a href="videos/<%= video._id %>"><%= video.title %></div>
+	</div>
+<% }); %>
+
+</div>
+</div>
+
+<% include partials/footer %>

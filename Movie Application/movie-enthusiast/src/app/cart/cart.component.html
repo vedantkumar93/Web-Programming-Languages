@@ -1,0 +1,52 @@
+<div class="row" style="margin-top: 80px">
+        <div class="col-md-2 "></div>    
+        <div class="col-md-8  my-2">
+          <div *ngIf="cart.length>0">      
+          <h3 class="mt-2 mb-3"> My Cart <fa-icon class="mx-1" [icon]="faShoppingCart"></fa-icon></h3>
+            <table class="table table-striped ">
+                        <thead>
+                          <tr>
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" style="width:fit-content" class="text-center">Title</th>
+                            <th scope="col" class="text-center">Image</th>
+                            <th scope="col" class="text-center">Price</th>
+                            <th scope="col" class="text-center">Quantity</th>
+                            <th scope="col" class="text-center">Total Amount</th> 
+                            <th scope="col" class="text-center">Delete</th> 
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let movie of cart;let i=index;">
+                            <th  class="text-center" scope="row">{{i+1}}</th>
+                            <td  style="width:fit-content" class="title-clickable text-center" (click)="goToMovieDetail(movie.id)">{{movie.title}}</td>
+                            <td class="text-center">
+                                    <img (click)="goToMovieDetail(movie.id)" [src]="imageUrl + movie.image" class="image-clickable" [alt]="movie.title">
+                            </td>
+                            <td class="text-center">${{movie.price}}</td>
+                            <td class="text-center"><input  (change)="updateQuantity(movie.title,movie.id,movie.quantity,movie.stock)" [(ngModel)]="movie.quantity" class="input-field text-center" type="number" step="1" min="1" [max]="movie.stock" ></td>
+                            <td class="text-center" >${{movie.totalAmount}}</td>
+                            <td class="text-center"><button type="button" (click)="deleteMovie(movie.id)" class="btn btn-danger" ><fa-icon class="mx-1" [icon]="faTrash"></fa-icon>Delete</button></td>
+                          </tr>                          
+                        </tbody>
+                      </table>
+                      <div class="row justify-content-center my-3">
+                        <h5 class="m-2">Total Amount:</h5> 
+                        <span class="font-weight-bold total-amount">${{totalAmount}}</span>
+                      </div>
+                      <div class="row justify-content-center">                 
+                          <button type="button" (click)="goToHomePage()" class="btn btn-warning mx-3" ><fa-icon class="mx-2" [icon]="faHome"></fa-icon>Go to Home Page</button>
+                          <button type="button" (click)="clearCart()" class="btn btn-danger mx-3" ><fa-icon class="mx-2" [icon]="faDumpster"></fa-icon>Clear Cart</button>
+                          <button type="button" (click)="checkout()" class="btn btn-warning mx-3" ><fa-icon class="mx-2" [icon]="faCreditCard"></fa-icon>Checkout</button>
+                      </div>
+                      </div>
+           
+           <div *ngIf="cart.length==0" class="text-center">
+            <p class="mt-3 empty-cart">No items in your cart.</p> 
+            <p class="empty-cart">Please add items to your cart to check out.</p> 
+            <img [src]="emptyCart" class="empty-cart-image" alt="empty cart">
+            <button type="button" (click)="goToHomePage()" class="btn btn-warning px-3 mr-2" ><fa-icon class="mx-2" [icon]="faHome"></fa-icon>Go to Home Page</button>
+          </div>             
+        </div>
+        <div class="col-md-2 "></div>    
+</div>
+

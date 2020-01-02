@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ajax</title>
+	<style>
+		table, th, td {
+  		border: 1px solid black;
+  		border-collapse: collapse;
+}
+</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("button").click(function(){
+				var head = "<tr><th>Title</th><th>Director</th><th>Genre</th><th>Cast</th><th>Short Description</th><th>IMDB Rating</th></tr>";
+				$.ajax({url:"movies.xml",
+						dataType:"xml",
+						success: function(result){
+						
+						$("table").append(head);
+						$(result).find('movie').each(function(){
+								var movie = $(this).find('title').text();
+								var director = $(this).find('director').text();
+								var genre="";
+								$(this).find('genre').each(function(){
+									genre = genre + $(this).text() + ",";
+									
+								});
+								genre = genre.substring(0, genre.length-1);
+								var cast="";
+								$(this).find('cast').find('person').each(function(){
+									cast+= $(this).attr("name")+ ",";
+								});
+								cast = cast.substring(0, cast.length-1);
+								var des = $(this).find("imdb-info").find("synopsis").text();
+								var score = $(this).find("imdb-info").find("score").text();
+								$("table").append("<tr><td>"+movie+"</td><td>"
+								+director+"</td><td>"+genre+"</td><td>"+cast+"</td><td>"
+								+des+"</td><td>"+score+"</td></tr>");
+						});
+
+
+						},
+						error: function(){
+							alert("error loading file");
+						}})
+			});
+		});
+
+	</script>
+</head>
+<body>
+	<button> Click Me</button>
+	<br>
+	<table id="table"></table>
+</body>
+</html>

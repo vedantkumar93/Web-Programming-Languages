@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.css">
+
+
+	
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<title>JQuery - Todo List</title>
+
+	<style type="text/css">
+		.done {
+			text-decoration: line-through;
+		}
+		.borderColor {
+			border-color: brown;
+		}		
+
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+
+			$("#newtodo").keypress(function(event){
+				if (event.which === 13){
+					var newTodo = $("#newtodo").val();
+					if(newTodo.length>0){
+						$("ul").append("<li class='list-group-item'><button class='fa fa-trash' style='display:None; margin-right:10px;'></button>" + newTodo + "</li>");
+						$("#newtodo").val("");
+					}
+				}
+			});
+
+			$("ul").on("click", "li", function(){
+				$(this).toggleClass("done");
+			});
+
+			$("#plus").click(function(){
+				$("#newtodo").toggle();
+			});
+
+			$("ul").on("mouseenter", "li", function(){
+				$(this).children().fadeIn();
+			});
+
+			$("ul").on("mouseleave", "li", function(){
+				$(this).children().fadeOut();
+			});
+
+			$("ul").on("click","button", function(){
+				$(this).parents(".list-group-item").remove();
+			});
+
+			$("input").on("focus", function(){
+				$(this).addClass("borderColor");
+			});
+
+			$("input").on("blur", function(){
+				$(this).removeClass("borderColor");
+			});
+		});
+
+	</script>
+</head>
+<body class="bg-info">
+	<div class="card mx-auto" style="margin-top: 100px; width: 16rem;">
+		<div class="card-header">
+			<h2>Todo List <i class="fa fa-plus" style="padding-left: 40px;" id="plus"></i> </h2>
+		</div>
+		<input type="text" id="newtodo" placeholder="Enter item">
+		<ul class="list-group list-group-flush">
+			
+		</ul>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+.image-clickable, .title-clickable{
+    z-index: 10;
+    pointer-events: auto;
+    cursor: pointer;
+    width:60px;   
+}
+
+
+.total-amount{
+    font-size :24px;
+}

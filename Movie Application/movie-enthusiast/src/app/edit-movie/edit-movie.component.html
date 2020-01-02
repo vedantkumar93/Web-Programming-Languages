@@ -1,0 +1,146 @@
+<div class="container" style="margin-top: 70px;">
+    <div class="row">
+    <div *ngIf="loading" class="col-sm-8 offset-sm-2">
+    </div>    
+    <div *ngIf="!loading" class="col-sm-8 offset-sm-2">
+    <div class="my-5">
+    <h2 class="mb-4">Edit Movie</h2>
+    <form [formGroup]="editMovieForm" >
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" formControlName="title" class="form-control" [ngClass]="{ 'is-invalid': submitted && (f.title.errors || serverError.title) }" maxlength="50"/>
+            <div *ngIf="submitted && (f.title.errors || serverError.title)" class="invalid-feedback">
+                <div *ngIf="(f.title.errors && f.title.errors.required) || (serverError.title && serverError.title.stringMin) ">Title is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea  rows="4" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && (f.description.errors || serverError.description) }" maxlength="5000"></textarea>
+            <div *ngIf="submitted && (f.description.errors || serverError.description)" class="invalid-feedback">
+                <div *ngIf="(f.description.errors && f.description.errors.required)">Description is required</div>           
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="rating">Rating</label>
+            <input type="number" step='0.1' formControlName="rating" class="form-control"  [ngClass]="{ 'is-invalid': submitted && (f.rating.errors || serverError.rating) }" min="0" max="5" />
+            <div *ngIf="submitted && (f.rating.errors || serverError.rating)" class="invalid-feedback">
+                <div *ngIf="(f.rating.errors && f.rating.errors.required)">Rating is required</div>
+                <div *ngIf="(f.rating.errors && f.rating.errors.min) || (serverError.rating && serverError.rating.numberMin)">Minimum Rating is 0</div>
+                <div *ngIf="(f.rating.errors && f.rating.errors.max) || (serverError.quantity && serverError.quantity.numberMax)">Maximum Rating is 5</div>
+                <div *ngIf="(f.rating.errors && f.rating.errors.pattern)|| (serverError.quantity && serverError.quantity.pattern)">Please enter a valid rating with a precision of 1 decimal point</div>                    
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="year">Year</label>
+            <input type="number" step="1"  formControlName="year" class="form-control"  [ngClass]="{ 'is-invalid': submitted && (f.year.errors || serverError.year) }" min="1950" max="currentYear" />
+            <div *ngIf="submitted && (f.year.errors || serverError.year)" class="invalid-feedback">
+                <div *ngIf="(f.year.errors && f.year.errors.required)">Year is required</div>
+                <div *ngIf="(f.year.errors && f.year.errors.min) || (serverError.year && serverError.year.numberMin)">Minimum year is 1950</div>
+                <div *ngIf="(f.year.errors && f.year.errors.max) || (serverError.year && serverError.year.numberMax)">Maximum year is {{currentYear}}</div>
+                <div *ngIf="(f.year.errors && f.year.errors.pattern) || (serverError.year && serverError.year.pattern)">Please enter a valid year</div>
+            </div>              
+        </div>
+        <div class="form-group">
+                <label for="duration">Duration (in minutes)</label>
+                <input type="number" step="1" formControlName="duration" class="form-control"  [ngClass]="{ 'is-invalid': submitted && (f.duration.errors || serverError.duration) }" min="1" max="480" /> 
+                <div *ngIf="submitted && (f.duration.errors || serverError.duration)" class="invalid-feedback">
+                    <div *ngIf="(f.duration.errors && f.duration.errors.required)">Duration is required</div>
+                    <div *ngIf="(f.duration.errors && f.duration.errors.min) || (serverError.duration && serverError.duration.numberMin)">Minimum duration is 1 minute</div>
+                    <div *ngIf="(f.duration.errors && f.duration.errors.max) || (serverError.duration && serverError.duration.numberMax)">Maximum duration is 480 minutes</div>
+                    <div *ngIf="(f.duration.errors && f.duration.errors.pattern) || (serverError.duration && serverError.duration.pattern)">Please enter a valid duration</div>
+                </div>                
+        </div>
+        <div class="form-group">
+                <label for="director">Director(s)</label>
+                <input type="text" formControlName="director" class="form-control"  [ngClass]="{ 'is-invalid': submitted && (f.director.errors || serverError.director) }" maxlength="70" />
+                <div *ngIf="submitted && (f.director.errors || serverError.director)" class="invalid-feedback">
+                    <div *ngIf="(f.director.errors && f.director.errors.required)">Director is required</div>
+                </div>
+                <div class="cast-info">
+                    <div  class="cast-hint">Directors must be seperated by a comma(,)</div>
+                </div>                
+        </div>
+        <div class="form-group">
+                <label for="cast">Cast</label>
+                <input type="text" formControlName="cast" class="form-control"  [ngClass]="{ 'is-invalid': submitted && (f.cast.errors || serverError.cast) }" maxlength="400" />
+                <div *ngIf="submitted && (f.cast.errors || serverError.cast)" class="invalid-feedback">
+                    <div *ngIf="(f.cast.errors && f.cast.errors.required)">Cast is required</div>
+                </div> 
+                <div class="cast-info">
+                    <div  class="cast-hint">Cast members must be seperated by a comma(,)</div>
+                </div>               
+        </div>
+        <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" step="0.01" formControlName="price" class="form-control"  [ngClass]="{ 'is-invalid': submitted && (f.price.errors || serverError.price) }" min="1"  />
+                <div *ngIf="submitted && (f.price.errors || serverError.price)" class="invalid-feedback">
+                    <div *ngIf="(f.price.errors && f.price.errors.required)">Price is required</div>
+                    <div *ngIf="(f.price.errors && f.price.errors.min) || (serverError.price && serverError.price.numberMin)">Minimum price is 1</div>
+                    <div *ngIf="(f.price.errors && f.price.errors.pattern) || (serverError.price && serverError.price.pattern)">Please enter a valid price with a precision of 2 decimal points</div>                    
+                </div>                
+        </div>
+        <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" step="1" formControlName="quantity" class="form-control"  [ngClass]="{ 'is-invalid': submitted && (f.quantity.errors || serverError.quantity) }" min="1"  />
+                <div *ngIf="submitted && (f.quantity.errors || serverError.quantity)" class="invalid-feedback">
+                    <div *ngIf="(f.quantity.errors && f.quantity.errors.required)">Quantity is required</div>   
+                    <div *ngIf="(f.quantity.errors && f.quantity.errors.min)||(serverError.quantity && serverError.quantity.numberMin)">Minimum quantity is 1</div>
+                    <div *ngIf="(f.quantity.errors && f.quantity.errors.pattern) ||(serverError.quantity && serverError.quantity.pattern)">Please enter a valid quantity</div>
+
+                </div>                
+        </div>
+        <div class="form-group">
+                <label for="inStock">In Stock</label>
+                <div class="mx-3 form-check form-check-inline">
+                        <input class="form-check-input" type="radio" formControlName="inStock"  id="inStockYes" value="true" >
+                        <label class="form-check-label" for="inStockYes">Yes</label>
+                </div>
+                <div class="mx-3 form-check form-check-inline">
+                        <input class="form-check-input" type="radio" formControlName="inStock" id="inStockNo" value="false">
+                        <label class="form-check-label" for="inStockNo">No</label>
+                </div>                
+        </div>
+        <div class="form-group">
+                <label for="isDeleted">Is Deleted</label>
+                <div class="mx-3 form-check form-check-inline">
+                        <input class="form-check-input" type="radio" formControlName="isDeleted" id="isDeletedYes" value="true">
+                        <label class="form-check-label" for="isDeletedYes">Yes</label>
+                </div>
+                <div class="mx-3 form-check form-check-inline">
+                        <input class="form-check-input" type="radio" formControlName="isDeleted" id="isDeletedNo" value="false" >
+                        <label class="form-check-label" for="isDeletedNo">No</label>
+                </div>                
+        </div>
+        <div class="form-group">
+                <label for="genre">Genre</label>
+                <input type="text" formControlName="genre" class="form-control"  [ngClass]="{ 'is-invalid': submitted && (f.genre.errors || serverError.genre) }" maxlength="50" />
+                <div *ngIf="submitted && (f.genre.errors || serverError.genre)" class="invalid-feedback">
+                    <div *ngIf="(f.genre.errors && f.genre.errors.required)">Genre is required</div>
+                </div>                
+        </div> 
+        <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file"  (change)="preview($event)" accept="image/*" formControlName="image" style="opacity: 90%;" id="file" class="custom-file-input" [ngClass]=" { 'is-invalid': submitted && (f.image.errors || serverError.image || imageTypeError) }">
+              <div *ngIf="submitted && (f.image.errors || serverError.image )" class="invalid-feedback">
+                    <!-- <div *ngIf="(f.image.errors && f.image.errors.required)">Image is required</div> -->
+                    <!-- <div *ngIf="imageTypeError">Only images are accepted. Not Updating image.</div> -->
+            </div>
+            <img *ngIf="imageChanged && imageURL" [src]="imageURL" height="200" >
+            <img *ngIf="!imageChanged" [src]="baseImageUrl + movie.image" height="200">
+            
+        </div>
+        <div class="form-group mt-5 text-center">
+            <button class="btn btn-warning mx-4 px-md-5" (click)= "onSubmit()" >
+                Save
+            </button>
+        
+        <button class="btn btn-warning mx-4 px-md-5" (click)="onReset()">
+                Reset
+        </button>           
+            <a routerLink="/home" class="btn btn-link text-danger mx-4">Cancel</a>
+        </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>

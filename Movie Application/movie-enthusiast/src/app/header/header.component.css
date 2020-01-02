@@ -1,0 +1,21 @@
+@font-face {
+    font-family: lobster;
+    src: url('../../assets/fonts/Lobster_1.3.otf') format("opentype");
+}
+.nav-item{
+    padding:2px;
+    margin-left: 7px;
+}
+
+.navbar-brand {
+    font-family: lobster, serif;
+    font-size: 30px;
+}
+
+.nounderline{
+    text-decoration: none !important;
+}
+
+.icon{
+    height : 35px;
+}

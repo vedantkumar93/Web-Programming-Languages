@@ -1,0 +1,11 @@
+.input-field{
+  height : 1.5rem;
+}
+
+.rating{
+  pointer-events: none;
+}
+
+.display-image{
+  width : 200px;
+}

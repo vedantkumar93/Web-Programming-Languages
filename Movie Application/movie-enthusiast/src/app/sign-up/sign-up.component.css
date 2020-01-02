@@ -1,0 +1,30 @@
+.password-info {
+    display: block;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: 80%;
+}
+
+.password-hint{
+    font-style: italic;
+}
+
+.password-strength{
+    font-size: 120%;
+    font-weight : bold;
+}
+.poor {
+    color:red;
+}
+.weak {
+    color:red;
+}
+.medium{
+    color:#f8e15d;
+}
+.strong{
+    color:green;
+}
+.very-strong{
+    color: darkgreen;
+}

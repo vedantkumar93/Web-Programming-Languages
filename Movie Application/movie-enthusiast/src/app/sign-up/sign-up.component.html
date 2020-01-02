@@ -1,0 +1,58 @@
+<div class="container" style="margin-top: 70px;">
+<div class="row">
+<div class="col-sm-8 offset-sm-2">
+<div class="my-5">
+<h2 class="mb-4">Sign Up</h2>
+<form [formGroup]="signUpForm" >
+    <div class="form-group">
+        <label for="name">Name <span class="text-danger">*</span></label>
+        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && (f.name.errors || serverError.name) }" maxlength="64"/>
+        <div *ngIf="submitted && (f.name.errors || serverError.name)" class="invalid-feedback">
+            <div *ngIf="(f.name.errors && f.name.errors.required) || (serverError.name && serverError.name.stringMin) ">Name is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="emailAddress">Email Address<span class="text-danger">*</span></label>
+        <input type="text" formControlName="emailAddress" class="form-control" [ngClass]="{ 'is-invalid': submitted && (f.emailAddress.errors || serverError.emailAddress) }" maxlength="64"/>
+        <div *ngIf="submitted && (f.emailAddress.errors || serverError.emailAddress)" class="invalid-feedback">
+            <div *ngIf="(f.emailAddress.errors && f.emailAddress.errors.required)">Email Address is required</div>
+            <div *ngIf="(f.emailAddress.errors && (f.emailAddress.errors.email || f.emailAddress.errors.pattern)) || (serverError.emailAddress && serverError.emailAddress.email)">Email Address is invalid</div>
+            <div *ngIf="(serverError.emailAddress && serverError.emailAddress.exists) ">Email Address already in use</div>            
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="phoneNumber">Phone Number</label>
+        <input type="text" formControlName="phoneNumber"  class="form-control" [ngClass]="{ 'is-invalid': submitted && (f.phoneNumber.errors || serverError.phoneNumber) }" maxlength="10" />
+        <div *ngIf="submitted && (f.phoneNumber.errors || serverError.phoneNumber)" class="invalid-feedback">
+            <div *ngIf="(f.phoneNumber.errors && f.phoneNumber.errors.pattern) || (serverError.phoneNumber && serverError.phoneNumber.stringPattern)">Phone Number is invalid</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password <span class="text-danger">*</span></label>
+        <input type="password" formControlName="password" class="form-control" (ngModelChange)= "checkPasswordStrength($event)" [ngClass]="{ 'is-invalid': submitted && (f.password.errors || serverError.password) }" maxlength="20"/>
+        <div *ngIf="submitted && (f.password.errors || serverError.password)" class="invalid-feedback">
+            <div *ngIf="(f.password.errors && f.password.errors.required)">Password is required</div>
+            <div *ngIf="(f.password.errors && f.password.errors.minlength) || (serverError.password && serverError.password.stringMin)">Password must be at least 6 characters</div>
+            <div *ngIf="(f.password.errors && f.password.errors.pattern) || (serverError.password && serverError.password.stringPattern)">Password must contain only alphanumeric characters or special character($,@,_)</div>
+        </div>
+        <div class="password-info">
+            <div *ngIf="(f.password.value == null || f.password.value.length == 0)" class = "password-hint" >Password must contain atleast one lowercase letter, one uppercase letter, one special character($,@,_) and one digit</div>
+            <div *ngIf="(f.password.value != null && f.password.value.length > 0)" class = "password-strength" [ngClass]="passwordStrength.class">{{passwordStrength.value}}</div>            
+        </div>
+    </div>
+    <div class="form-group mt-5 text-center">
+        <button class="btn btn-warning mx-4 px-md-5" (click)= "onSubmit()" >
+            Sign Up
+        </button>
+    
+    <button class="btn btn-warning mx-4 px-md-5" (click)="onReset()">
+            Reset
+    </button>
+    
+        <a routerLink="/home" class="btn btn-link text-danger mx-4">Cancel</a>
+    </div>
+</form>
+</div>
+</div>
+</div>
+</div>

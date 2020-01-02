@@ -1,0 +1,55 @@
+.fontMontserrat{
+    font-family: Montserrat,'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+.fontLucida{
+font-family: 'Lucida Console', Monaco, monospace
+}
+
+.paddingTop100{
+    padding-top: 100px;
+}
+
+.paddingBottom100{
+    padding-bottom: 100px;
+}
+
+.paddingTopBottom100{
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.padding0{
+    padding: 0px;
+}
+
+.paddingRight20{
+    padding-right: 20px;
+    float: left;
+}
+
+.paddingLeftRight20{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.paddingTop180{
+    padding-top: 180px;
+    clear: left;
+}
+
+.dodgerBlueFont{
+    color: dodgerblue;
+}
+
+.greenBackground{
+    background-color:#18BB9C;
+}
+
+.blackBackground{
+    background-color: black;
+}
+
+.whiteFont{
+    color: white;
+}

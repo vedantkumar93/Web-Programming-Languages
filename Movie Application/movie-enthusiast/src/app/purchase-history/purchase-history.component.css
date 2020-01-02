@@ -1,0 +1,19 @@
+.image-clickable, .title-clickable{
+    z-index: 10;
+    pointer-events: auto;
+    cursor: pointer;
+    width:60px;   
+}
+.empty-cart{
+    /* font-weight : bold; */
+    font-size : 32px;
+}
+
+.empty-cart-image{
+    height: 400px;
+}
+
+
+.total-amount{
+    font-size :24px;
+}

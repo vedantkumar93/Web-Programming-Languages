@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <input type='text' id='location'/>
+    <input type ='submit' id='search'/> 
+    <!--The div element for the map -->
+    <div id="map"></div>
+    <script>
+
+var map;
+var infowindow;
+// Initialize and add the map
+function initMap() {
+  infowindow = new google.maps.InfoWindow();
+  // The location of Uluru 
+  var uluru = {lat: -25.344, lng: 131.036};
+  // The map, centered at Uluru
+  map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 4, center: uluru});
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({position: uluru, map: map});
+  document.getElementById('search').onclick = function(){
+    var geocoder = new google.maps.Geocoder();
+    geocodeAddress(geocoder, map);
+  }
+}
+
+function geocodeAddress(geocoder, resultsMap) {
+  var address = document.getElementById('location').value;
+  geocoder.geocode({'address': address}, function(results, status) {
+    if (status === 'OK') {
+      resultsMap.setCenter(results[0].geometry.location);
+      resultsMap.setZoom(15);
+      var marker = new google.maps.Marker({
+        map: resultsMap,
+        position: results[0].geometry.location
+      });
+      google.maps.event.addListener(marker, 'click', function() {
+      });
+      var request = {
+      location: results[0].geometry.location,
+      radius: '1500',
+      type: ['restaurant']
+    };
+
+    service = new google.maps.places.PlacesService(resultsMap);
+    service.nearbySearch(request, callback);
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
+
+function callback(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      var place = results[i];
+      createMarker(results[i]);
+    }
+  }
+}
+
+function createMarker(place) {
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location
+  });
+}
+
+
+    </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcWhzcS0fRqtT4czOHzFBfbw4PqiIhnk4&libraries=places&callback=initMap">
+    </script>
+  </body>
+</html>

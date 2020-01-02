@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-md bg-warning navbar-dark fixed-top">
+    <a class="navbar-brand text-dark" routerLink="/home">
+    <img class="icon mt-1 mb-3" [src]="movieIcon" alt="movieIcon"/>  
+     <span class="mb-4 mx-2"> Movie Enthusiast </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul *ngIf="newUser" class="nav navbar-nav ml-auto">
+            <li class="nav-item ">
+              <a class="nav-link text-dark" routerLink="/sign-up"><fa-icon [icon]="faUser"></fa-icon> Sign Up</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link text-dark" routerLink="/login"><fa-icon [icon]="faSignInAlt"></fa-icon> Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" routerLink="/cart"><fa-icon [icon]="faShoppingCart"></fa-icon> Cart <span class="badge badge-pill badge-light p-2 mx-1">{{totalQuantity}}</span></a>
+                
+            </li>
+        </ul>
+        <ul *ngIf="!newUser" class="nav navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link text-dark" routerLink="/purchaseHistory"><fa-icon [icon]="faUser"></fa-icon> {{currentUser.name}}</a>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-link nounderline text-dark" (click)="logout()"><fa-icon [icon]="faSignInAlt"></fa-icon> Logout</button>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link text-dark" routerLink="/cart"><fa-icon [icon]="faShoppingCart"></fa-icon>Cart <span class="badge badge-pill badge-light p-2 mx-1">{{totalQuantity}}</span></a>              
+          </li>
+      </ul>
+    </div>
+</nav>
+  

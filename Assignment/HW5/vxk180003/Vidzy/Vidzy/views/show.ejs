@@ -1,0 +1,27 @@
+<% include partials/header%>
+
+<div class="container">
+<h1> Movie Details </h1>
+
+<p><img src="/images/<%= video.image %>"></img></p>
+<p> Title: <%= video.title %></p>
+<p> Genre: <%= video.genre %></p>
+<p> Description: <%= video.description %></p>
+<% if(user && user.type === "admin") { %>
+<a class="btn btn-warning btn-lg" href="/videos/<%= video._id %>/edit" role="button">Edit video</a>
+
+
+<form action="/videos/<%= video._id %>?_method=DELETE" method="POST">
+
+<button type="submit" class="btn btn-danger">Delete video</button>
+<% } %>
+<!--<a class="btn btn-danger btn-lg" href="/videos/<%= video._id %>/delete" role="button">Delete video</a>-->
+</form>
+
+<p>
+<a href = "/">Back to list </a>
+</p>
+
+</div>
+
+<% include partials/footer %>
